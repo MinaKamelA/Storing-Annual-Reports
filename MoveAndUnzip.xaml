@@ -74,7 +74,6 @@
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="MoveAndUnzip" sap:VirtualizedContainerService.HintSize="486,921" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="fileName" />
       <Variable x:TypeArguments="si:DirectoryInfo" Name="extractedFolder" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
