@@ -5,10 +5,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1437,1846</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1516,1586</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SortingLogic_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="27">
+    <scg:List x:TypeArguments="x:String" Capacity="54">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -36,10 +36,11 @@
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>ActiproSoftware.Text.RegularExpressions</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="20">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="40">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -60,16 +61,17 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
       <AssemblyReference>ActiproSoftware.Text.Wpf</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="SortingLogic" sap:VirtualizedContainerService.HintSize="1447,1781" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="SortingLogic" sap:VirtualizedContainerService.HintSize="1526,1521" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="filesToSort" />
-      <Variable x:TypeArguments="x:String" Name="unzippedFolder">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:String">C:\Mimo's Folders\Career\Udacity\Projects\Sorting Annual Reports\SortingAnnualReports\cd00284-intro-to-RPA-with-UiPath-project-main\cd00284-intro-to-RPA-with-UiPath-project-main</Literal>
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="x:String" Default="C:\Mimo's Folders\Career\Udacity\Projects\Sorting Annual Reports\SortingAnnualReports\cd00284-intro-to-RPA-with-UiPath-project-main\cd00284-intro-to-RPA-with-UiPath-project-main" Name="unzippedFolder" />
       <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="fullDate" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -77,7 +79,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign sap:VirtualizedContainerService.HintSize="1405,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <Assign sap:VirtualizedContainerService.HintSize="1484,60" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="si:DirectoryInfo">[in_unzippedFolder]</OutArgument>
       </Assign.To>
@@ -85,28 +87,36 @@
         <InArgument x:TypeArguments="si:DirectoryInfo">[new DirectoryInfo("C:\Mimo's Folders\Career\Udacity\Projects\Sorting Annual Reports\SortingAnnualReports\cd00284-intro-to-RPA-with-UiPath-project-main\cd00284-intro-to-RPA-with-UiPath-project-main")]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="1405,1093" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_unzippedFolder.GetFiles]">
+    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="1484,1329" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_unzippedFolder.GetFiles]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="item" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1369,959" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1448,1195" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
-              <Variable x:TypeArguments="x:Boolean" Name="isMatch" />
-              <Variable x:TypeArguments="x:String" Name="folderName" />
+              <Variable x:TypeArguments="x:Boolean" Name="hasDate" />
+              <Variable x:TypeArguments="x:String" Name="folderName">
+                <Variable.Default>
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </Variable.Default>
+              </Variable>
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:IsMatch BuilderPattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" DisplayName="Is Match" sap:VirtualizedContainerService.HintSize="1327,59" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[item.ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" RegexOption="IgnoreCase" Result="[isMatch]" />
-            <If Condition="[isMatch]" sap:VirtualizedContainerService.HintSize="1327,768" sap2010:WorkflowViewState.IdRef="If_1">
+            <ui:IsMatch BuilderPattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" DisplayName="Is Match" sap:VirtualizedContainerService.HintSize="1406,59" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[item.ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" RegexOption="IgnoreCase" Result="[hasDate]" />
+            <If Condition="[hasDate]" sap:VirtualizedContainerService.HintSize="1406,1004" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="526,562" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence sap:VirtualizedContainerService.HintSize="563,831" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
-                    <Variable x:TypeArguments="scg:ICollection(x:String)" Name="years" />
+                    <Variable x:TypeArguments="scg:ICollection(x:String)" Name="years">
+                      <Variable.Default>
+                        <mva:VisualBasicValue x:TypeArguments="scg:ICollection(x:String)" ExpressionText="new Collection(Of String)" />
+                      </Variable.Default>
+                    </Variable>
                     <Variable x:TypeArguments="x:Boolean" Name="inCollection" />
                   </Sequence.Variables>
                   <sap:WorkflowViewStateService.ViewState>
@@ -114,56 +124,66 @@
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:Matches BuilderPattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" sap:VirtualizedContainerService.HintSize="484,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[item.ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" RegexOption="IgnoreCase" Result="[fullDate]" />
-                  <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="484,61" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[fullDate.First().Value.Substring(4,4)]" />
-                  <ExistsInCollection x:TypeArguments="x:String" Collection="[years]" DisplayName="Exists In Collection" sap:VirtualizedContainerService.HintSize="484,22" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_1" Item="[fullDate.First().Value.Substring(4,4)]" Result="[inCollection]" />
-                  <If Condition="[inCollection]" sap:VirtualizedContainerService.HintSize="484,208" sap2010:WorkflowViewState.IdRef="If_2">
+                  <ui:Matches BuilderPattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" sap:VirtualizedContainerService.HintSize="521,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[item.ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" RegexOption="IgnoreCase" Result="[fullDate]" />
+                  <ExistsInCollection x:TypeArguments="x:String" Collection="[years]" DisplayName="Exists In Collection" sap:VirtualizedContainerService.HintSize="521,22" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_1" Item="[fullDate.First().Value.Substring(4,4)]" Result="[inCollection]" />
+                  <If Condition="[Not inCollection]" sap:VirtualizedContainerService.HintSize="521,381" sap2010:WorkflowViewState.IdRef="If_2">
                     <If.Then>
-                      <ui:Continue sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Continue_2" />
+                      <Sequence sap:VirtualizedContainerService.HintSize="376,233" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <AddToCollection x:TypeArguments="x:String" Collection="[years]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" Item="[fullDate.First().Value.Substring(4,4)]" />
+                        <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="334,79" sap2010:WorkflowViewState.IdRef="CreateDirectory_2" Path="[Directory.GetCurrentDirectory() + &quot;\&quot; +fullDate.First().Value.Substring(4,4)]" />
+                      </Sequence>
                     </If.Then>
-                    <If.Else>
-                      <AddToCollection x:TypeArguments="x:String" Collection="[years]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" Item="[fullDate.First().Value.Substring(4,4)]" />
-                    </If.Else>
                   </If>
+                  <ui:MoveFile ContinueOnError="{x:Null}" Destination="[Directory.GetCurrentDirectory() + &quot;\&quot; +fullDate.First().Value.Substring(4,4)]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="521,157" sap2010:WorkflowViewState.IdRef="MoveFile_2" Overwrite="False" Path="[unzippedFolder +&quot;\&quot;+ item.ToString]" />
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence sap:VirtualizedContainerService.HintSize="756,620" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                  <Sequence.Variables>
-                    <Variable x:TypeArguments="x:Boolean" Name="folderExist" />
-                  </Sequence.Variables>
+                <Sequence sap:VirtualizedContainerService.HintSize="798,856" sap2010:WorkflowViewState.IdRef="Sequence_15">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:FolderExistsX DisplayName="Folder Exists" Exists="[folderExist]" sap:VirtualizedContainerService.HintSize="714,132" sap2010:WorkflowViewState.IdRef="FolderExistsX_2" Path="[Directory.GetCurrentDirectory+&quot;\&quot;+folderName]" />
-                  <If Condition="[folderExist]" sap:VirtualizedContainerService.HintSize="714,356" sap2010:WorkflowViewState.IdRef="If_4">
-                    <If.Else>
-                      <If Condition="[CInt(Date.Today.date.ToString) &lt; 10]" sap:VirtualizedContainerService.HintSize="569,208" sap2010:WorkflowViewState.IdRef="If_3">
-                        <If.Then>
-                          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
-                            <Assign.To>
-                              <OutArgument x:TypeArguments="x:String">[folderName]</OutArgument>
-                            </Assign.To>
-                            <Assign.Value>
-                              <InArgument x:TypeArguments="x:String">["0"+Date.Today.Day.ToString + Date.Today.Month.ToString + Date.Today.Year.ToString]</InArgument>
-                            </Assign.Value>
-                          </Assign>
-                        </If.Then>
-                        <If.Else>
-                          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
-                            <Assign.To>
-                              <OutArgument x:TypeArguments="x:String">[folderName]</OutArgument>
-                            </Assign.To>
-                            <Assign.Value>
-                              <InArgument x:TypeArguments="x:String">[Date.Today.Day.ToString + Date.Today.Month.ToString + Date.Today.Year.ToString]</InArgument>
-                            </Assign.Value>
-                          </Assign>
-                        </If.Else>
-                      </If>
-                    </If.Else>
+                  <If Condition="[folderName =&quot;&quot;]" sap:VirtualizedContainerService.HintSize="756,567" sap2010:WorkflowViewState.IdRef="If_4">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="611,419" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If Condition="[CInt(Date.Today.Day.ToString) &lt; 10]" sap:VirtualizedContainerService.HintSize="569,208" sap2010:WorkflowViewState.IdRef="If_3">
+                          <If.Then>
+                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[folderName]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["0"+Date.Today.Day.ToString + Date.Today.Month.ToString + Date.Today.Year.ToString]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Then>
+                          <If.Else>
+                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[folderName]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[Date.Today.Day.ToString + Date.Today.Month.ToString + Date.Today.Year.ToString]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Else>
+                        </If>
+                        <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="569,79" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[Directory.GetCurrentDirectory() + &quot;\&quot; + folderName]" />
+                      </Sequence>
+                    </If.Then>
                   </If>
+                  <ui:MoveFile ContinueOnError="{x:Null}" Destination="[Directory.GetCurrentDirectory() + &quot;\&quot; + folderName]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="756,157" sap2010:WorkflowViewState.IdRef="MoveFile_4" Overwrite="False" Path="[unzippedFolder +&quot;\&quot;+ item.ToString]" />
                 </Sequence>
               </If.Else>
             </If>
@@ -171,33 +191,5 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1405,456" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-      <ui:CommentOut.Body>
-        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="351,378" sap2010:WorkflowViewState.IdRef="Sequence_4">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="309,286" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[fullDate]">
-            <ui:ForEach.Body>
-              <ActivityAction x:TypeArguments="x:Object">
-                <ActivityAction.Argument>
-                  <DelegateInArgument x:TypeArguments="x:Object" Name="item" />
-                </ActivityAction.Argument>
-                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="273,153" sap2010:WorkflowViewState.IdRef="Sequence_3">
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                  <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="231,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[item.ToString]" />
-                </Sequence>
-              </ActivityAction>
-            </ui:ForEach.Body>
-          </ui:ForEach>
-        </Sequence>
-      </ui:CommentOut.Body>
-    </ui:CommentOut>
   </Sequence>
 </Activity>
