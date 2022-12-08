@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>654,1182</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>654,815</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>MoveAndUnzip_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -72,7 +72,7 @@
       <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="MoveAndUnzip" sap:VirtualizedContainerService.HintSize="486,1077" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="MoveAndUnzip" sap:VirtualizedContainerService.HintSize="486,750" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="si:DirectoryInfo" Name="extractedFolder" />
     </Sequence.Variables>
@@ -81,7 +81,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Move the zip file using its path that was passed to in_zipFilePath argument to the project directory&#xD;&#xA;" Destination="[Directory.GetCurrentDirectory]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="444,214" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="False" Path="[in_zipFilePath]">
+    <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Move the zip file using its path that was passed to in_zipFilePath argument to the project directory&#xA;" Destination="[Directory.GetCurrentDirectory]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="444,214" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="False" Path="[in_zipFilePath]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -110,22 +110,5 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="444,287" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[out_unzippedFolder.GetFiles]">
-      <ui:ForEach.Body>
-        <ActivityAction x:TypeArguments="x:Object">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="x:Object" Name="item" />
-          </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="273,153" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="231,61" sap2010:WorkflowViewState.IdRef="WriteLine_6" Text="[item.ToString]" />
-          </Sequence>
-        </ActivityAction>
-      </ui:ForEach.Body>
-    </ui:ForEach>
   </Sequence>
 </Activity>
