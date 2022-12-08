@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>654,1500</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>654,1427</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Browser_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -74,7 +74,7 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Browser" sap:VirtualizedContainerService.HintSize="552,1435" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Browser" sap:VirtualizedContainerService.HintSize="552,1362" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:Browser" Name="openedBrowser" />
     </Sequence.Variables>
@@ -83,13 +83,13 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" sap2010:Annotation.AnnotationText="Open Browser at the repo url and download the zip file" BrowserType="Firefox" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="510,1281" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Private="True" UiBrowser="[openedBrowser]" Url="https://github.com/udacity/cd00284-intro-to-RPA-with-UiPath-project">
+    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" sap2010:Annotation.AnnotationText="Open Browser at the repo url and download the zip file" BrowserType="Firefox" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="510,1208" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Private="True" UiBrowser="[openedBrowser]" Url="https://github.com/udacity/cd00284-intro-to-RPA-with-UiPath-project">
       <ui:OpenBrowser.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="476,1149" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="476,1076" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
               <Variable x:TypeArguments="si:FileInfo" Name="zipFile" />
               <Variable x:TypeArguments="x:String" Default="[Environment.UserName]" Name="user" />
@@ -162,24 +162,32 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:GetLastDownloadedFile>
-            <Assign sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign sap2010:Annotation.AnnotationText="Extract the file path from the file info and assign it to the argument out_zipFilePath to be used in the next workflow" sap:VirtualizedContainerService.HintSize="434,117" sap2010:WorkflowViewState.IdRef="Assign_1">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[out_zipFilePath]</OutArgument>
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:String">[zipFile.FullName]</InArgument>
               </Assign.Value>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <Assign sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <Assign sap2010:Annotation.AnnotationText="Extract the file name from the file info and assign it to the argument out_zipFileName to be used in the next workflow" sap:VirtualizedContainerService.HintSize="434,132" sap2010:WorkflowViewState.IdRef="Assign_2">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[out_zipFileName]</OutArgument>
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:String">[zipFile.Name]</InArgument>
               </Assign.Value>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="434,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[out_zipFilePath]" />
-            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="434,61" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[zipFile.Name]" />
           </Sequence>
         </ActivityAction>
       </ui:OpenBrowser.Body>
