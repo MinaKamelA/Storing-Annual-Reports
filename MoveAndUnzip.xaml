@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>654,986</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>654,1182</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>MoveAndUnzip_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -72,7 +72,7 @@
       <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="MoveAndUnzip" sap:VirtualizedContainerService.HintSize="486,921" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="MoveAndUnzip" sap:VirtualizedContainerService.HintSize="486,1077" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="si:DirectoryInfo" Name="extractedFolder" />
     </Sequence.Variables>
@@ -81,22 +81,34 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MoveFile ContinueOnError="{x:Null}" Destination="[Directory.GetCurrentDirectory]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="444,157" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="False" Path="[in_zipFilePath]">
+    <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Move the zip file using its path that was passed to in_zipFilePath argument to the project directory&#xD;&#xA;" Destination="[Directory.GetCurrentDirectory]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="444,214" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="False" Path="[in_zipFilePath]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:MoveFile>
-    <uascw:ExtractFiles Password="{x:Null}" CodePage="Default" DestinationFolder="[Directory.GetCurrentDirectory]" DestinationFolderInfo="[extractedFolder]" DisplayName="Extract/Unzip Files" ExtractToADedicatedFolder="True" FileToExtract="[Directory.GetCurrentDirectory + &quot;\&quot; + in_zipFileName]" sap:VirtualizedContainerService.HintSize="444,205" sap2010:WorkflowViewState.IdRef="ExtractFiles_1" SkipUnsupportedFiles="False" />
-    <Assign sap:VirtualizedContainerService.HintSize="444,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <uascw:ExtractFiles Password="{x:Null}" sap2010:Annotation.AnnotationText="Extract the file using its name that is passed to in_zipFileName argument to the project directory and save the directory info in extractedFolder variable" CodePage="Default" DestinationFolder="[Directory.GetCurrentDirectory]" DestinationFolderInfo="[extractedFolder]" DisplayName="Extract/Unzip Files" ExtractToADedicatedFolder="True" FileToExtract="[Directory.GetCurrentDirectory + &quot;\&quot; + in_zipFileName]" sap:VirtualizedContainerService.HintSize="444,247" sap2010:WorkflowViewState.IdRef="ExtractFiles_1" SkipUnsupportedFiles="False">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </uascw:ExtractFiles>
+    <Assign sap2010:Annotation.AnnotationText="assign the path of the extracted folder to out_unzippedFolder argument to be used by next workflow" sap:VirtualizedContainerService.HintSize="444,117" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="si:DirectoryInfo">[out_unzippedFolder]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="si:DirectoryInfo">[extractedFolder.GetDirectories(in_zipFileName.Split({"."c})(0))(0)]</InArgument>
       </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </Assign>
     <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="444,287" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[out_unzippedFolder.GetFiles]">
       <ui:ForEach.Body>
