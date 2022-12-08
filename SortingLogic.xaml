@@ -5,7 +5,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1516,1586</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1840,3310</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SortingLogic_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="54">
@@ -37,6 +37,7 @@
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>ActiproSoftware.Text.RegularExpressions</x:String>
       <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -67,126 +68,325 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="SortingLogic" sap:VirtualizedContainerService.HintSize="1526,1521" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="SortingLogic" sap:VirtualizedContainerService.HintSize="1850,3245" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Default="C:\Mimo's Folders\Career\Udacity\Projects\Sorting Annual Reports\SortingAnnualReports\cd00284-intro-to-RPA-with-UiPath-project-main\cd00284-intro-to-RPA-with-UiPath-project-main" Name="unzippedFolder" />
-      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="fullDate" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Int32)" Default="[new Dictionary(Of String, Int32)]" Name="years" />
+      <Variable x:TypeArguments="x:String" Default="undefined" Name="folderName" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign sap:VirtualizedContainerService.HintSize="1484,60" sap2010:WorkflowViewState.IdRef="Assign_2">
-      <Assign.To>
-        <OutArgument x:TypeArguments="si:DirectoryInfo">[in_unzippedFolder]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="si:DirectoryInfo">[new DirectoryInfo("C:\Mimo's Folders\Career\Udacity\Projects\Sorting Annual Reports\SortingAnnualReports\cd00284-intro-to-RPA-with-UiPath-project-main\cd00284-intro-to-RPA-with-UiPath-project-main")]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="1484,1329" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_unzippedFolder.GetFiles]">
+    <ui:ForEach x:TypeArguments="si:FileInfo" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="1808,2784" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[in_unzippedFolder.GetFiles]">
       <ui:ForEach.Body>
-        <ActivityAction x:TypeArguments="x:Object">
+        <ActivityAction x:TypeArguments="si:FileInfo">
           <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="x:Object" Name="item" />
+            <DelegateInArgument x:TypeArguments="si:FileInfo" Name="item" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1448,1195" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="ForEachFileBody" sap:VirtualizedContainerService.HintSize="1772,2650" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="hasDate" />
-              <Variable x:TypeArguments="x:String" Name="folderName">
-                <Variable.Default>
-                  <Literal x:TypeArguments="x:String" Value="" />
-                </Variable.Default>
-              </Variable>
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:IsMatch BuilderPattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" DisplayName="Is Match" sap:VirtualizedContainerService.HintSize="1406,59" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[item.ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" RegexOption="IgnoreCase" Result="[hasDate]" />
-            <If Condition="[hasDate]" sap:VirtualizedContainerService.HintSize="1406,1004" sap2010:WorkflowViewState.IdRef="If_1">
+            <ui:IsMatch sap2010:Annotation.AnnotationText="Match the date part of the file name using regex and passing the result to hasDate variable" BuilderPattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" DisplayName="Is Match" sap:VirtualizedContainerService.HintSize="1730,101" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[item.Name]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" RegexOption="IgnoreCase" Result="[hasDate]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:IsMatch>
+            <If sap2010:Annotation.AnnotationText="Checking if the file has a date in its name" Condition="[hasDate]" sap:VirtualizedContainerService.HintSize="1730,2417" sap2010:WorkflowViewState.IdRef="If_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="563,831" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence DisplayName="IfHasDateTrueSequence" sap:VirtualizedContainerService.HintSize="725,2238" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
-                    <Variable x:TypeArguments="scg:ICollection(x:String)" Name="years">
-                      <Variable.Default>
-                        <mva:VisualBasicValue x:TypeArguments="scg:ICollection(x:String)" ExpressionText="new Collection(Of String)" />
-                      </Variable.Default>
-                    </Variable>
-                    <Variable x:TypeArguments="x:Boolean" Name="inCollection" />
+                    <Variable x:TypeArguments="x:Boolean" Name="inDictionary" />
+                    <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="fullDate" />
+                    <Variable x:TypeArguments="x:Boolean" Name="monthFolderExist" />
+                    <Variable x:TypeArguments="x:Boolean" Name="typeFolderExist" />
                   </Sequence.Variables>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:Matches BuilderPattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" sap:VirtualizedContainerService.HintSize="521,59" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[item.ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" RegexOption="IgnoreCase" Result="[fullDate]" />
-                  <ExistsInCollection x:TypeArguments="x:String" Collection="[years]" DisplayName="Exists In Collection" sap:VirtualizedContainerService.HintSize="521,22" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_1" Item="[fullDate.First().Value.Substring(4,4)]" Result="[inCollection]" />
-                  <If Condition="[Not inCollection]" sap:VirtualizedContainerService.HintSize="521,381" sap2010:WorkflowViewState.IdRef="If_2">
+                  <ui:Matches sap2010:Annotation.AnnotationText="If the file has date in its name =&gt; use regex to extract the date part and save it in fullDate variable to be used for sorting" BuilderPattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" sap:VirtualizedContainerService.HintSize="683,116" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[item.ToString]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\d{4})" RegexOption="IgnoreCase" Result="[fullDate]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:Matches>
+                  <ExistsInCollection x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Check if the year part has been added before and add the result to inDictionary variable (this is used to get the count of files in each folder)" Collection="[years.Keys]" DisplayName="Exists In Collection" sap:VirtualizedContainerService.HintSize="683,124" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_2" Item="[fullDate.First().Value.Substring(4,4)]" Result="[inDictionary]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ExistsInCollection>
+                  <If Condition="[inDictionary]" sap:VirtualizedContainerService.HintSize="683,548" sap2010:WorkflowViewState.IdRef="If_2">
                     <If.Then>
-                      <Sequence sap:VirtualizedContainerService.HintSize="376,233" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                      <Assign sap2010:Annotation.AnnotationText="Increase the number of files in a certain year (this is used to get the count of the files in each folder)" sap:VirtualizedContainerService.HintSize="262,117" sap2010:WorkflowViewState.IdRef="Assign_7">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Int32">[years(fullDate.First().Value.Substring(4,4))]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Int32">[years(fullDate.First().Value.Substring(4,4))+1]</InArgument>
+                        </Assign.Value>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="IfInDictionaryFalseSequence" sap:VirtualizedContainerService.HintSize="376,400" sap2010:WorkflowViewState.IdRef="Sequence_10">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <AddToCollection x:TypeArguments="x:String" Collection="[years]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" Item="[fullDate.First().Value.Substring(4,4)]" />
-                        <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="334,79" sap2010:WorkflowViewState.IdRef="CreateDirectory_2" Path="[Directory.GetCurrentDirectory() + &quot;\&quot; +fullDate.First().Value.Substring(4,4)]" />
+                        <Assign sap2010:Annotation.AnnotationText="Assign a value of 1 to the current year entry in the years dictionary indicating it is the first file to be added to this year (this is used to get the count of files in each folder)" sap:VirtualizedContainerService.HintSize="334,147" sap2010:WorkflowViewState.IdRef="Assign_8">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Int32">[years(fullDate.First().Value.Substring(4,4))]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                          </Assign.Value>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </Assign>
+                        <ui:CreateDirectory ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Create a folder with the name of the year in the date part of the file" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="334,121" sap2010:WorkflowViewState.IdRef="CreateDirectory_2" Path="[Directory.GetCurrentDirectory() + &quot;\&quot; +fullDate.First().Value.Substring(4,4)]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:CreateDirectory>
                       </Sequence>
-                    </If.Then>
+                    </If.Else>
                   </If>
-                  <ui:MoveFile ContinueOnError="{x:Null}" Destination="[Directory.GetCurrentDirectory() + &quot;\&quot; +fullDate.First().Value.Substring(4,4)]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="521,157" sap2010:WorkflowViewState.IdRef="MoveFile_2" Overwrite="False" Path="[unzippedFolder +&quot;\&quot;+ item.ToString]" />
+                  <ui:FolderExistsX sap2010:Annotation.AnnotationText="Check if a folder with the name of the month part of the date exist and save the result in monthFolderExist variable" DisplayName="Folder Exists" Exists="[monthFolderExist]" sap:VirtualizedContainerService.HintSize="683,174" sap2010:WorkflowViewState.IdRef="FolderExistsX_1" Path="[Directory.GetCurrentDirectory()+&quot;\&quot;+fullDate.First().Value.Substring(4,4) +&quot;\&quot;+ fullDate.First().Value.Substring(2,2)]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:FolderExistsX>
+                  <If Condition="[monthFolderExist]" sap:VirtualizedContainerService.HintSize="683,258" sap2010:WorkflowViewState.IdRef="If_6">
+                    <If.Else>
+                      <ui:CreateDirectory ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="If the month folder doesn't exist create it" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="334,110" sap2010:WorkflowViewState.IdRef="CreateDirectory_3" Path="[Directory.GetCurrentDirectory()+&quot;\&quot;+fullDate.First().Value.Substring(4,4) +&quot;\&quot;+ fullDate.First().Value.Substring(2,2)]">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:CreateDirectory>
+                    </If.Else>
+                  </If>
+                  <ui:FolderExistsX sap2010:Annotation.AnnotationText="Check if a folder with the name of the extension of the file exist and save the result in typeFolderExist variable" DisplayName="Folder Exists" Exists="[typeFolderExist]" sap:VirtualizedContainerService.HintSize="683,174" sap2010:WorkflowViewState.IdRef="FolderExistsX_2" Path="[Directory.GetCurrentDirectory()+&quot;\&quot;+fullDate.First().Value.Substring(4,4) +&quot;\&quot;+ fullDate.First().Value.Substring(2,2)+&quot;\&quot;+ item.ToString.Split({&quot;.&quot;c})(1)]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:FolderExistsX>
+                  <If Condition="[typeFolderExist]" sap:VirtualizedContainerService.HintSize="683,258" sap2010:WorkflowViewState.IdRef="If_7">
+                    <If.Else>
+                      <ui:CreateDirectory ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="If the type folder doesn't exist create it" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="334,110" sap2010:WorkflowViewState.IdRef="CreateDirectory_4" Path="[Directory.GetCurrentDirectory()+&quot;\&quot;+fullDate.First().Value.Substring(4,4) +&quot;\&quot;+ fullDate.First().Value.Substring(2,2)+&quot;\&quot;+ item.ToString.Split({&quot;.&quot;c})(1)]">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:CreateDirectory>
+                    </If.Else>
+                  </If>
+                  <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Finally move the file to the folder with the name of the type within the folder with the name of the month within the folder with the name of the year in the project folder" Destination="[Directory.GetCurrentDirectory()+&quot;\&quot;+fullDate.First().Value.Substring(4,4) +&quot;\&quot;+ fullDate.First().Value.Substring(2,2)+&quot;\&quot;+ item.ToString.Split({&quot;.&quot;c})(1)]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="683,214" sap2010:WorkflowViewState.IdRef="MoveFile_2" Overwrite="False" Path="[item.FullName]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:MoveFile>
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence sap:VirtualizedContainerService.HintSize="798,856" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                <Sequence DisplayName="IfHasDateFalseSequence" sap:VirtualizedContainerService.HintSize="960,1521" sap2010:WorkflowViewState.IdRef="Sequence_15">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <If Condition="[folderName =&quot;&quot;]" sap:VirtualizedContainerService.HintSize="756,567" sap2010:WorkflowViewState.IdRef="If_4">
+                  <If sap2010:Annotation.AnnotationText="If the file has no date in its name check if a folder with the date of today already exist using the folderName variable to check" Condition="[folderName =&quot;undefined&quot;]" sap:VirtualizedContainerService.HintSize="918,1190" sap2010:WorkflowViewState.IdRef="If_4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <Sequence sap:VirtualizedContainerService.HintSize="611,419" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                      <Sequence DisplayName="IfFolderNameTrueSequence" sap:VirtualizedContainerService.HintSize="611,1011" sap2010:WorkflowViewState.IdRef="Sequence_9">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <If Condition="[CInt(Date.Today.Day.ToString) &lt; 10]" sap:VirtualizedContainerService.HintSize="569,208" sap2010:WorkflowViewState.IdRef="If_3">
+                        <If sap2010:Annotation.AnnotationText="If no folder with today's date name exist check for the month to add preceeding zero in case the month is less than 10" Condition="[CInt(Now.Month.ToString)&lt;10]" sap:VirtualizedContainerService.HintSize="569,292" sap2010:WorkflowViewState.IdRef="If_5">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
                           <If.Then>
-                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                            <Assign sap2010:Annotation.AnnotationText="Assign the month with preceeding zero to the folderName variable" sap:VirtualizedContainerService.HintSize="262,102" sap2010:WorkflowViewState.IdRef="Assign_5">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:String">[folderName]</OutArgument>
                               </Assign.To>
                               <Assign.Value>
-                                <InArgument x:TypeArguments="x:String">["0"+Date.Today.Day.ToString + Date.Today.Month.ToString + Date.Today.Year.ToString]</InArgument>
+                                <InArgument x:TypeArguments="x:String">["0" + Now.Month.ToString]</InArgument>
                               </Assign.Value>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
                             </Assign>
                           </If.Then>
                           <If.Else>
-                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                            <Assign sap2010:Annotation.AnnotationText="Assign the month to the folderName variable" sap:VirtualizedContainerService.HintSize="262,102" sap2010:WorkflowViewState.IdRef="Assign_6">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:String">[folderName]</OutArgument>
                               </Assign.To>
                               <Assign.Value>
-                                <InArgument x:TypeArguments="x:String">[Date.Today.Day.ToString + Date.Today.Month.ToString + Date.Today.Year.ToString]</InArgument>
+                                <InArgument x:TypeArguments="x:String">[Now.Month.ToString]</InArgument>
                               </Assign.Value>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
                             </Assign>
                           </If.Else>
                         </If>
-                        <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="569,79" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[Directory.GetCurrentDirectory() + &quot;\&quot; + folderName]" />
+                        <If Condition="[CInt(Now.Day.ToString) &lt; 10]" sap:VirtualizedContainerService.HintSize="569,250" sap2010:WorkflowViewState.IdRef="If_3">
+                          <If.Then>
+                            <Assign sap2010:Annotation.AnnotationText="Add the day with preceeding zero to the folderName variable" sap:VirtualizedContainerService.HintSize="262,102" sap2010:WorkflowViewState.IdRef="Assign_3">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[folderName]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[folderName + "0"+Now.Day.ToString + Now.Year.ToString]</InArgument>
+                              </Assign.Value>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </Assign>
+                          </If.Then>
+                          <If.Else>
+                            <Assign sap2010:Annotation.AnnotationText="Add the day to the folderName variable" sap:VirtualizedContainerService.HintSize="262,91" sap2010:WorkflowViewState.IdRef="Assign_4">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[folderName]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[folderName + Now.Day.ToString +Now.Year.ToString]</InArgument>
+                              </Assign.Value>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </Assign>
+                          </If.Else>
+                        </If>
+                        <ui:CreateDirectory ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Create a folder with today's date as its name" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="569,110" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[Directory.GetCurrentDirectory() + &quot;\&quot; + folderName]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:CreateDirectory>
+                        <Assign sap2010:Annotation.AnnotationText="Assign a value of 1 to the today's date entry in the years dictionary indicating it is the first file to be added to this year (this is used to get the count of files in each folder)" sap:VirtualizedContainerService.HintSize="569,147" sap2010:WorkflowViewState.IdRef="Assign_9">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Int32">[years(folderName)]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                          </Assign.Value>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </Assign>
                       </Sequence>
                     </If.Then>
+                    <If.Else>
+                      <Assign sap2010:Annotation.AnnotationText="If folder exist increase the number of files in today's folder (this is used to get the count of the files in each folder)" sap:VirtualizedContainerService.HintSize="262,117" sap2010:WorkflowViewState.IdRef="Assign_12">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Int32">[years(folderName)]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Int32">[years(folderName)+1]</InArgument>
+                        </Assign.Value>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Assign>
+                    </If.Else>
                   </If>
-                  <ui:MoveFile ContinueOnError="{x:Null}" Destination="[Directory.GetCurrentDirectory() + &quot;\&quot; + folderName]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="756,157" sap2010:WorkflowViewState.IdRef="MoveFile_4" Overwrite="False" Path="[unzippedFolder +&quot;\&quot;+ item.ToString]" />
+                  <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Finally move the file to the folder with the name of today's date in the project folder" Destination="[Directory.GetCurrentDirectory() + &quot;\&quot; + folderName]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="918,199" sap2010:WorkflowViewState.IdRef="MoveFile_4" Overwrite="False" Path="[item.FullName]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:MoveFile>
                 </Sequence>
               </If.Else>
             </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="1808,329" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[years]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="scg:KeyValuePair(x:String, x:Int32)" Name="item" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="273,195" sap2010:WorkflowViewState.IdRef="Sequence_17">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <WriteLine sap2010:Annotation.AnnotationText="Write the count of files in each year or date folder to the output" DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="231,103" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;There is &quot;+item.Value.ToString+&quot; file(s) in folder &quot;+ item.Key]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </WriteLine>
           </Sequence>
         </ActivityAction>
       </ui:ForEach.Body>
