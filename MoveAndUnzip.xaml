@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>654,815</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>654,902</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>MoveAndUnzip_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -72,13 +72,14 @@
       <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="MoveAndUnzip" sap:VirtualizedContainerService.HintSize="486,750" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Move a zip file to the current directory and unzip it in the new location to be ready for sorting&#xD;&#xA;&#xD;&#xA;Pre-condition: The file must exist and passed in here by DownloadFile workflow.&#xD;&#xA;Post-action: Sort the extracted file content." DisplayName="MoveAndUnzip" sap:VirtualizedContainerService.HintSize="486,837" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="si:DirectoryInfo" Name="extractedFolder" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Move the zip file using its path that was passed to in_zipFilePath argument to the project directory&#xA;" Destination="[Directory.GetCurrentDirectory]" DisplayName="Move File" sap:VirtualizedContainerService.HintSize="444,214" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="False" Path="[in_zipFilePath]">

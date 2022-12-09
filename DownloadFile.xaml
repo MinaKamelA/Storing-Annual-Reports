@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>654,1427</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>654,1514</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Browser_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -74,13 +74,14 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Browser" sap:VirtualizedContainerService.HintSize="552,1362" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Opens a browser to a github repo and download the content of the repo as a zip file then close the browser&#xD;&#xA;&#xD;&#xA;Pre-condition: None.&#xD;&#xA;Post-action: Move the file and unzip it." DisplayName="Browser" sap:VirtualizedContainerService.HintSize="552,1449" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:Browser" Name="openedBrowser" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" sap2010:Annotation.AnnotationText="Open Browser at the repo url and download the zip file" BrowserType="Firefox" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="510,1208" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Private="True" UiBrowser="[openedBrowser]" Url="https://github.com/udacity/cd00284-intro-to-RPA-with-UiPath-project">
